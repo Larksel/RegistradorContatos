@@ -12,7 +12,10 @@ import Contato from './components/Contato';
 import CriarContato from './components/CriarContato';
 
 export default function App() {
-  const [contatos, setContatos] = useState([]);
+  const [contatos, setContatos] = useState<{
+    id: string,
+    contato: string
+  }[]>([]);
 
   useEffect(() => {
     const q = query(collection(db, 'contacts'));
@@ -48,12 +51,12 @@ export default function App() {
       <div className='flex flex-col items-center justify-center w-[600px]'>
         <CriarContato />
         <div className='flex flex-col gap-6 w-full'>
-          {contatos.map((contato, index) => (
+          {contatos.map((contato) => (
             <Contato
               contato={contato}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
-              key={index}
+              key={contato.id}
             />
           ))}
         </div>
